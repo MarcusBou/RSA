@@ -27,8 +27,8 @@ namespace RSASender
                 string message = Console.ReadLine();
                 if (message != null)
                 {
-                    byte[] crypted = rsa.Encrypt(Encoding.UTF8.GetBytes(message), rsa.SetParameters(exponent, modulus), false);
-                    Console.WriteLine(Convert.ToBase64String(crypted));
+                    byte[] crypted = rsa.Encrypt(Encoding.ASCII.GetBytes(message), rsa.SetParameters(exponent, modulus), false);
+                    Console.WriteLine(BitConverter.ToString(crypted));
                 }
             }
         }

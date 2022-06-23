@@ -14,15 +14,16 @@ namespace RSAReceiver
         public RSAParameters RSAParameters { get { return rsaParameters; } }
         public RSA()
         {
-            this.rsa = new RSACryptoServiceProvider();
+            this.rsa = new RSACryptoServiceProvider(4096);
             this.rsaParameters = this.rsa.ExportParameters(false);
         }
 
         
-
         public byte[] Decrypt(byte[] DataToEncrypt, bool DoOAEPPadding)
         {
             byte[] Data;
+            Console.WriteLine(rsa.KeySize);
+            Console.WriteLine(DataToEncrypt.Length);
             Data = rsa.Decrypt(DataToEncrypt, DoOAEPPadding);
             return Data;
         }

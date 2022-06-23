@@ -11,21 +11,30 @@ namespace RSASender
     { 
         public RSAParameters SetParameters(string exponent, string modulus)
         {
-            RSAParameters parameters = new RSAParameters();
-            parameters.Exponent = Encoding.UTF8.GetBytes(exponent);
-            parameters.Modulus = Encoding.UTF8.GetBytes(modulus);
+            RSAParameters parameters = new RSAParameters {
+                Exponent = Convert.FromHexString(exponent.Replace("-", "")),
+                Modulus = Convert.FromHexString(modulus.Replace("-", ""))
+            };
+            
             return parameters;
         }
 
         public byte[] Encrypt(byte[] DataToEncrypt,RSAParameters parames, bool DoOAEPPadding)
         {
             byte[] Data;
-            using (RSACryptoServiceProvider rsa = new RSACryptoServiceProvider())
+            using (RSACryptoServiceProvider rsa = new RSACryptoServiceProvider(4096))
             {
                 rsa.ImportParameters(parames);
                 Data = rsa.Encrypt(DataToEncrypt, DoOAEPPadding);
             }
             return Data;
+        }
+
+        public string ConvertToHexString(string message)
+        {
+            byte[] mess = Encoding.UTF8.GetBytes(message);
+            string hex = Convert.ToHexString(mess);
+            return hex;
         }
     }
 }
