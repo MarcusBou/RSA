@@ -30,11 +30,5 @@ namespace RSASender
             return Data;
         }
 
-        public string ConvertToHexString(string message)
-        {
-            byte[] mess = Encoding.UTF8.GetBytes(message);
-            string hex = Convert.ToHexString(mess);
-            return hex;
-        }
     }
 }
